@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baja de Curso</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Baja de Curso</h1>
+    <form id="buscarCursoForm">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="cursoInfo" style="display:none;">
+        <h2>Información del Curso</h2>
+        <p id="info"></p>
+        <img id="logoImg" src="" alt="Logo" style="max-width: 100px;"><br><br>
+        <button onclick="bajaCurso()">Eliminar Curso</button>
+    </div>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarCursoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigo = document.getElementById('codigo').value;
+            const cursos = consultarCursos();
+            const curso = cursos.find(c => c.codigo === codigo);
+            if (curso) {
+                document.getElementById('info').textContent = `Código: ${curso.codigo}, Nombre: ${curso.nombre}, Descripción: ${curso.descripcion}`;
+                if (curso.logo) {
+                    document.getElementById('logoImg').src = curso.logo;
+                }
+                document.getElementById('cursoInfo').style.display = 'block';
+            } else {
+                alert('Curso no encontrado');
+                document.getElementById('cursoInfo').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

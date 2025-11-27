@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    color: #00eaff;
+    text-shadow: 0 0 20px #00eaff, 0 0 40px #00eaff;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 15px #00eaff; }
+    to { text-shadow: 0 0 30px #00eaff, 0 0 50px #00eaff; }
+}
+.tabla-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px 40px;
+    box-shadow: 0 0 30px rgba(0, 234, 255, 0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1.5s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+table {
+    border-collapse: collapse;
+    width: 500px;
+    color: #fff;
+    font-size: 1.1rem;
+}
+th, td {
+    border: 1px solid rgba(0, 234, 255, 0.5);
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background-color: rgba(0, 234, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+td {
+    background-color: rgba(255, 255, 255, 0.03);
+    transition: background 0.3s;
+}
+tr:hover td {
+    background-color: rgba(0, 234, 255, 0.1);
+}

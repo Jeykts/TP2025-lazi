@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baja de Materia</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Baja de Materia</h1>
+    <form id="buscarMateriaForm">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="materiaInfo" style="display:none;">
+        <h2>Información de la Materia</h2>
+        <p id="info"></p>
+        <img id="logoImg" src="" alt="Logo" style="max-width: 100px;"><br><br>
+        <button onclick="bajaMateria()">Eliminar Materia</button>
+    </div>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarMateriaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigo = document.getElementById('codigo').value;
+            const materias = consultarMaterias();
+            const materia = materias.find(m => m.codigo === codigo);
+            if (materia) {
+                document.getElementById('info').textContent = `Código: ${materia.codigo}, Nombre: ${materia.nombre}`;
+                if (materia.logo) {
+                    document.getElementById('logoImg').src = materia.logo;
+                }
+                document.getElementById('materiaInfo').style.display = 'block';
+            } else {
+                alert('Materia no encontrada');
+                document.getElementById('materiaInfo').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

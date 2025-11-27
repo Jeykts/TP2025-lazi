@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Cursos</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Consulta de Cursos</h1>
+    <table id="cursosTable">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Logo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Cursos will be loaded here -->
+        </tbody>
+    </table>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        window.onload = function() {
+            const cursos = consultarCursos();
+            const tbody = document.querySelector('#cursosTable tbody');
+            tbody.innerHTML = '';
+            cursos.forEach(curso => {
+                const row = tbody.insertRow();
+                row.insertCell(0).textContent = curso.codigo;
+                row.insertCell(1).textContent = curso.nombre;
+                row.insertCell(2).textContent = curso.descripcion;
+                const imgCell = row.insertCell(3);
+                if (curso.logo) {
+                    const img = document.createElement('img');
+                    img.src = curso.logo;
+                    img.style.maxWidth = '100px';
+                    imgCell.appendChild(img);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de Materia</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Modificación de Materia</h1>
+    <form id="buscarMateriaForm">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <form id="modificarMateriaForm" style="display:none;">
+        <label for="codigoMod">Código:</label>
+        <input type="text" id="codigoMod" name="codigoMod" readonly><br><br>
+
+        <label for="nombreMod">Nombre:</label>
+        <input type="text" id="nombreMod" name="nombreMod" required><br><br>
+
+        <label for="logoMod">Logo:</label>
+        <input type="file" id="logoMod" name="logoMod" accept="image/*"><br><br>
+        <img id="logoImg" src="" alt="Logo actual" style="max-width: 100px;"><br><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarMateriaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigo = document.getElementById('codigo').value;
+            const materias = consultarMaterias();
+            const materia = materias.find(m => m.codigo === codigo);
+            if (materia) {
+                document.getElementById('codigoMod').value = materia.codigo;
+                document.getElementById('nombreMod').value = materia.nombre;
+                if (materia.logo) {
+                    document.getElementById('logoImg').src = materia.logo;
+                }
+                document.getElementById('modificarMateriaForm').style.display = 'block';
+            } else {
+                alert('Materia no encontrada');
+                document.getElementById('modificarMateriaForm').style.display = 'none';
+            }
+        });
+
+        document.getElementById('modificarMateriaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            modificarMateria();
+        });
+    </script>
+</body>
+</html>

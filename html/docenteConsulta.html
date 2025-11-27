@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Docentes</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Consulta de Docentes</h1>
+    <table id="docentesTable">
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Docentes will be loaded here -->
+        </tbody>
+    </table>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        window.onload = function() {
+            const docentes = consultarDocentes();
+            const tbody = document.querySelector('#docentesTable tbody');
+            tbody.innerHTML = '';
+            docentes.forEach(docente => {
+                const row = tbody.insertRow();
+                row.insertCell(0).textContent = docente.dni;
+                row.insertCell(1).textContent = docente.nombre;
+                row.insertCell(2).textContent = docente.apellido;
+                const imgCell = row.insertCell(3);
+                if (docente.foto) {
+                    const img = document.createElement('img');
+                    img.src = docente.foto;
+                    img.style.maxWidth = '100px';
+                    imgCell.appendChild(img);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de Docente</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Modificación de Docente</h1>
+    <form id="buscarDocenteForm">
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <form id="modificarDocenteForm" style="display:none;">
+        <label for="dniMod">DNI:</label>
+        <input type="text" id="dniMod" name="dniMod" readonly><br><br>
+
+        <label for="nombreMod">Nombre:</label>
+        <input type="text" id="nombreMod" name="nombreMod" required><br><br>
+
+        <label for="apellidoMod">Apellido:</label>
+        <input type="text" id="apellidoMod" name="apellidoMod" required><br><br>
+
+        <label for="fotoMod">Foto:</label>
+        <input type="file" id="fotoMod" name="fotoMod" accept="image/*"><br><br>
+        <img id="fotoImg" src="" alt="Foto actual" style="max-width: 100px;"><br><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarDocenteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const dni = document.getElementById('dni').value;
+            const docentes = consultarDocentes();
+            const docente = docentes.find(d => d.dni === dni);
+            if (docente) {
+                document.getElementById('dniMod').value = docente.dni;
+                document.getElementById('nombreMod').value = docente.nombre;
+                document.getElementById('apellidoMod').value = docente.apellido;
+                if (docente.foto) {
+                    document.getElementById('fotoImg').src = docente.foto;
+                }
+                document.getElementById('modificarDocenteForm').style.display = 'block';
+            } else {
+                alert('Docente no encontrado');
+                document.getElementById('modificarDocenteForm').style.display = 'none';
+            }
+        });
+
+        document.getElementById('modificarDocenteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            modificarDocente();
+        });
+    </script>
+</body>
+</html>

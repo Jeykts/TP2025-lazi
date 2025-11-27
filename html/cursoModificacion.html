@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación de Curso</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Modificación de Curso</h1>
+    <form id="buscarCursoForm">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <form id="modificarCursoForm" style="display:none;">
+        <label for="codigoMod">Código:</label>
+        <input type="text" id="codigoMod" name="codigoMod" readonly><br><br>
+
+        <label for="nombreMod">Nombre:</label>
+        <input type="text" id="nombreMod" name="nombreMod" required><br><br>
+
+        <label for="descripcionMod">Descripción:</label>
+        <textarea id="descripcionMod" name="descripcionMod"></textarea><br><br>
+
+        <label for="logoMod">Logo:</label>
+        <input type="file" id="logoMod" name="logoMod" accept="image/*"><br><br>
+        <img id="logoImg" src="" alt="Logo actual" style="max-width: 100px;"><br><br>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarCursoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigo = document.getElementById('codigo').value;
+            const cursos = consultarCursos();
+            const curso = cursos.find(c => c.codigo === codigo);
+            if (curso) {
+                document.getElementById('codigoMod').value = curso.codigo;
+                document.getElementById('nombreMod').value = curso.nombre;
+                document.getElementById('descripcionMod').value = curso.descripcion;
+                if (curso.logo) {
+                    document.getElementById('logoImg').src = curso.logo;
+                }
+                document.getElementById('modificarCursoForm').style.display = 'block';
+            } else {
+                alert('Curso no encontrado');
+                document.getElementById('modificarCursoForm').style.display = 'none';
+            }
+        });
+
+        document.getElementById('modificarCursoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            modificarCurso();
+        });
+    </script>
+</body>
+</html>

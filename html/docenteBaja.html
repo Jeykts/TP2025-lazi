@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baja de Docente</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+    <h1>Baja de Docente</h1>
+    <form id="buscarDocenteForm">
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" required><br><br>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="docenteInfo" style="display:none;">
+        <h2>Información del Docente</h2>
+        <p id="info"></p>
+        <img id="fotoImg" src="" alt="Foto" style="max-width: 100px;"><br><br>
+        <button onclick="bajaDocente()">Eliminar Docente</button>
+    </div>
+    <button onclick="window.location.href='sistema.html'">Volver al Menú</button>
+    <script src="../js/funciones.js"></script>
+    <script>
+        document.getElementById('buscarDocenteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const dni = document.getElementById('dni').value;
+            const docentes = consultarDocentes();
+            const docente = docentes.find(d => d.dni === dni);
+            if (docente) {
+                document.getElementById('info').textContent = `DNI: ${docente.dni}, Nombre: ${docente.nombre}, Apellido: ${docente.apellido}`;
+                if (docente.foto) {
+                    document.getElementById('fotoImg').src = docente.foto;
+                }
+                document.getElementById('docenteInfo').style.display = 'block';
+            } else {
+                alert('Docente no encontrado');
+                document.getElementById('docenteInfo').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
